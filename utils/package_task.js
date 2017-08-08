@@ -45,6 +45,13 @@ packageTask.getHandler = function (grunt) {
 
         var archive_name = pkg.name;
 
+        //scoped package names contain /, which makes the archive name
+        //in a subdir, which is unnecessary.
+        var match;
+        if((match = archive_name.match(/[/](.+)$/))) {
+            archive_name = match[1];
+        }
+
         if (options.include_version) {
             archive_name += '_' + pkg.version.replace(/\./g, '-');
         }
